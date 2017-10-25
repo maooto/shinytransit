@@ -1,0 +1,35 @@
+corrcode,period,corrname,Origin,Destination
+NWR001,evening,Everett to Seattle,Everett,Seattle
+NWR002,evening,Seattle to Everett,Seattle,Everett
+NWR003,evening,SeaTac to Seattle,SeaTac,Seattle
+NWR004,evening,Seattle to SeaTac ,Seattle,SeaTac
+NWR005,evening,Lynnwood to Bellevue,Lynnwood,Bellevue
+NWR006,evening,Bellevue to Lynnwood,Bellevue,Lynnwood
+NWR007,evening,Tukwila to Bellevue,Tukwila,Bellevue
+NWR008,evening,Bellevue to Tukwila,Bellevue,Tukwila
+NWR009,evening,Auburn to Renton,Auburn,Renton
+NWR010,evening,Renton to Auburn,Renton,Auburn
+NWR011,evening,Issaquah to Seattle,Issaquah,Seattle
+NWR012,evening,Seattle to Issaquah,Seattle,Issaquah
+NWR013,evening,Redmond to Seattle,Redmond,Seattle
+NWR014,evening,Seattle to Redmond,Seattle,Redmond
+NWR015,evening,Bellevue to Seattle via SR520,Bellevue,Seattle
+NWR016,evening,Seattle to Bellevue via SR520,Seattle,Bellevue
+NWR017,evening,Bellevue to Seattle via I90,Bellevue,Seattle
+NWR018,evening,Seattle to Bellevue via I90,Seattle,Bellevue
+NWR019,evening,Redmond to Bellevue,Redmond,Bellevue
+NWR020,evening,Bellevue to Redmond,Bellevue,Redmond
+NWR021,evening,Issaquah to Bellevue,Issaquah,Bellevue
+NWR022,evening,Bellevue to Issaquah,Bellevue,Issaquah
+NWR023,evening,Federal Way to Seattle,Federal Way,Seattle
+NWR024,evening,Seattle to Federal Way,Seattle,Federal Way
+NWR025,evening,Everett to Bellevue,Everett,Bellevue
+NWR026,evening,Bellevue to Everett,Bellevue,Everett
+OR001,evening,Olympia to Lacey,Olympia,Lacey
+OR002,evening,Lacey to Olympia ,Lacey,Olympia
+OR003,evening,Lacey to Lakewood,Lacey,Lakewood
+OR004,evening,Lakewood to Lacey,Lakewood,Lacey
+OR005,evening,Lakewood to Tacoma,Lakewood,Tacoma
+OR006,evening,Tacoma to Lakewood ,Tacoma,Lakewood
+OR007,evening,Tacoma to Federal Way,Tacoma,Federal Way
+OR008,evening,Federal Wa to Tacoma,Federal Way,Tacoma
