@@ -14,52 +14,8 @@ shinyServer(function(input, output) {
   #   map
   # }
 
-
-  ## DEFINE FUNCTIONS #############
-  
-  choosebasemap <- function(period) { 
-    if(period == 'morning') { 
-      mapchoice <- 'OpenStreetMap.BlackAndWhite' #'CartoDB.Positron'
-    } else { 
-      mapchoice <- 'CartoDB.DarkMatter'
-    }
-    
-    return(mapchoice)
-  }
   
   
-  
-  spldfmaker <- function(citychoice, odchoice, timechoice, pmchoice) { 
-    
-    source('./Scripts/linecolormaker') 
-    spldf@data$linecolor <- linecolormaker(pmchoice = pmchoice, timechoice = timechoice)
-    
-    #subset the spatial dataframe for plotting, given user inputs 
-    
-    od <- odhash[, c('corrcode', as.character(odchoice))]
-    
-    od1 <- od[od[,as.character(odchoice)] == as.character(citychoice), ]
-    
-    
-    if (as.character(timechoice) == 'morning') { 
-      spldf <- spldf.mor
-      res1 <- merge(resmor, od1, by = 'corrcode')
-      
-    } else { 
-      spldf <- spldf.eve  
-      res1 <- merge(reseve, od1, by = 'corrcode')
-    }
-    
-    res2 <- res1[res1$period == as.character(timechoice), ] #the subset of results the user wants to plot 
-    
-    spldf <- spldf[spldf@data$corrcode%in% res2$corrcode, ] #the corresponding subset of the spldf
-    
-    source('./Scripts/linecolormaker') 
-    spldf@data$linecolor <- linecolormaker(pmchoice = pmchoice, timechoice = timechoice) #color the lines
-    
-    return(spldf)
-  }
-
   ## MAIN LEAFLET MAP ###########
  
   
@@ -78,8 +34,9 @@ shinyServer(function(input, output) {
   observe ({
 
     spldf <- spldfmaker(citychoice = as.character(input$city),
-                             odchoice = as.character(input$od),
-                             timechoice = as.character(input$moreve))
+                        odchoice = as.character(input$od),
+                        timechoice = as.character(input$moreve), 
+                        pmchoice = as.character(input$pmetric))
     
     
 

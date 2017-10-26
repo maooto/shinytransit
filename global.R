@@ -16,6 +16,21 @@
 # library(rgdal)
 # library(arules)
 # 
+
+source('./Scripts/linecolormaker.R')
+source('./Scripts/spldfmaker.R')
+source('./Scripts/choosebasemap.R')
+
+# timechoice <- 'morning'
+# odchoice <- 'Origin'
+# citychoice <- 'Seattle'
+# pmchoice <- 'Ridership'
+# 
+# spldf <- spldfmaker(citychoice = 'Seattle',
+#                     odchoice = 'Origin',
+#                     timechoice = 'morning',
+#                     pmchoice = 'Ridership')
+
 # initlat <- 47.642137
 # initlong <- -122.253325
 # initzoom <- 11
