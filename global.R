@@ -33,7 +33,7 @@ source('./Scripts/choosebasemap.R')
 
 # initlat <- 47.642137
 # initlong <- -122.253325
-# initzoom <- 11
+ initzoom <- 9
 # 
 # mycolors <- data.frame(colbin = c(1:4),
 #                        linecolor = as.character(c('#74add1',

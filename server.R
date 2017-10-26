@@ -22,11 +22,11 @@ shinyServer(function(input, output) {
   
   output$transitmap <- renderLeaflet({
     leaflet() %>% 
-      setView(lat = initlat, lng = initlong, zoom = initzoom) %>% 
-      addPolylines(data = spldf.mor, fillOpacity =  1, 
-                   stroke = T, 
-                   weight = 5, 
-                   color = 'blue')
+      setView(lat = initlat, lng = initlong, zoom = initzoom)  
+      # addPolylines(data = spldf.mor, fillOpacity =  1, 
+      #              stroke = T, 
+      #              weight = 5, 
+      #              color = 'blue')
     })
   
   ## OBSERVER FOR MAPPING ui VARIABLES ###########
@@ -44,17 +44,18 @@ shinyServer(function(input, output) {
       clearShapes() %>%
       addProviderTiles(choosebasemap(input$moreve)) %>%
       addPolylines(data = spldf, 
-                   fillOpacity =  1,
+                   opacity = .8, 
                    stroke = T, 
-                   weight = 5, 
-                   color = ~linecolor, 
+                   weight = 6, 
+                   color = ~spldf@data$linecolor, 
                    highlightOptions = highlightOptions(stroke = T, 
-                                                       color = 'black', 
-                                                       weight = 2, 
+                                                       #color = spldf@data$linecolor, 
+                                                       opacity = 1, 
+                                                       weight = 10, 
                                                        bringToFront = T), 
-                   label = ~htmltools::HTML(paste("<h2>", spldf@data[,3], "</h2>", 
-                                  "<b>Avg. TT (mins):</b>", spldf@data[,4], "<br>", 
-                                  "<b>Rel. TT (mins):</b>", spldf@data[,5], 
+                   label = htmltools::HTML(paste("<h5>", spldf@data$Commute, "</h5>", 
+                                  "<b>Avg. TT (mins):</b>", spldf@data$`Average Travel Time`, "<br>", 
+                                  "<b>Rel. TT (mins):</b>", spldf@data$`Reliable Travel Time`, 
                                   sep = ""))) %>%
       addLegend('bottomleft', colors = colordf$linecolor,
                 labels = colordf$bounds,
@@ -69,7 +70,10 @@ shinyServer(function(input, output) {
 
 
 
-
+# label = htmltools::HTML(c(paste("<h5>", spldf@data$Commute, "</h5>", 
+#                                 "<b>Avg. TT (mins):</b>", spldf@data$`Average Travel Time`, "<br>", 
+#                                 "<b>Rel. TT (mins):</b>", spldf@data$`Reliable Travel Time`, 
+#                                 sep = "")))) %>%
 
 
 

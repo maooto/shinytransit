@@ -2,7 +2,7 @@ linecolormaker <- function(spldf, results, pmchoice) {
   
   ## FIRST DETERMINE CUTPOINTS FOR THE COLOR LEGEND 
   ## BASED ON THE USER-CHOSEN PERFORMANCE METRIC 
-  colorcats <- 4 #of color categories
+  colorcats <- dim(mycolors)[1] #of color categories
   
   upperbound <- max(results[, as.character(pmchoice)], na.rm = T) + 1
   
@@ -19,10 +19,12 @@ linecolormaker <- function(spldf, results, pmchoice) {
                                                                         method = "interval"))), 
                         colbin = seq(1,colorcats,1))
   
-  colordf <<- merge(colordf, mycolors, by = 'colbin') #bring in the color palette and pass colordf to global env
+  colordf <<- merge(colordf, mycolors, by = 'colbin') #bring in the color palette and pass colordf to global env (for legend)
   
   ## NOW PUT USER-SELECTED DATA INTO THOSE BINS
-  colors <- data.frame(colbin = as.numeric(cut(spldf@data[,as.character(pmchoice)], breaks = cutpoints)))
+  binfactor <- cut(spldf@data[,as.character(pmchoice)], breaks = cutpoints)
+  colors <- data.frame(colbin = as.numeric(binfactor))
+                       
   colors <- merge(colors, mycolors, by = 'colbin')
   
   return(colors$linecolor)
