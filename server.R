@@ -90,9 +90,7 @@ shinyServer(function(input, output) {
   }
 
   ## MAIN LEAFLET MAP ###########
- 
-  
-  
+
   output$transitmap <- renderLeaflet({
     leaflet() %>% 
       setView(lat = initlat, lng = initlong, zoom = initzoom) %>% 
@@ -126,29 +124,29 @@ shinyServer(function(input, output) {
                              odchoice = as.character(input$od),
                              timechoice = as.character(input$moreve))
 
-    # leafletProxy("transitmap") %>%
-    #   clearShapes() %>%
-    #   addProviderTiles(choosebasemap(input$moreve)) %>% 
-    #   registerPlugin(polylineoffset_Plugin) %>% 
-    #   # addPolylines(data = spldf.mor, fillOpacity =  1,
-    #   #              color = c('red', 'blue', 'yellow')) %>% #linecolormaker(pmchoice = input$pmetric, timechoice = input$moreve)) %>%
-    #   # addLegend('bottomleft', colors = colordf$linecolor,
-    #   #           labels = colordf$bounds,
-    #   #           title = 'Title', #paste('Average daily peak-period ', as.character(input$pmetric), sep = ''),
-    #   #           layerId = 'legend') %>% 
-    #   # htmlwidgets::onRender(jsCode  = "function(el, x, data) {
-    #   #                     L.polyline([
-    #   #                                 [47.61324, -122.3300], 
-    #   #                                 [47.98185, -122.1864]
-    #   #                               ], { 
-    #   #                                 color: 'green', 
-    #   #                                 weight: 4, 
-    #   #                                 offset: -4
-    #   #                               }).addTo(this);
-    #   #                             }", 
-    #   #                       data = splist) %>% 
-    #   # addPolylines(data = spldf, fillOpacity =  1,
-    #   #              color = linecolormaker(pmchoice = input$pmetric, timechoice = input$moreve)) 
+    leafletProxy("transitmap") %>%
+      clearShapes() %>%
+      addProviderTiles(choosebasemap(input$moreve)) %>%
+      registerPlugin(polylineoffset_Plugin) %>%
+      addPolylines(data = spldf.mor, fillOpacity =  1,
+                   color = c('red', 'blue', 'yellow')) %>% #linecolormaker(pmchoice = input$pmetric, timechoice = input$moreve)) %>%
+      addLegend('bottomleft', colors = colordf$linecolor,
+                labels = colordf$bounds,
+                title = 'Title', #paste('Average daily peak-period ', as.character(input$pmetric), sep = ''),
+                layerId = 'legend') %>%
+      htmlwidgets::onRender(jsCode  = "function(el, x, data) {
+                          L.polyline([
+                                      [47.61324, -122.3300],
+                                      [47.98185, -122.1864]
+                                    ], {
+                                      color: 'green',
+                                      weight: 4,
+                                      offset: -4
+                                    }).addTo(this);
+                                  }",
+                            data = splist) %>%
+      addPolylines(data = spldf, fillOpacity =  1,
+                   color = linecolormaker(pmchoice = input$pmetric, timechoice = input$moreve))
       
   })
 
