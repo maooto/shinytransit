@@ -99,7 +99,7 @@ shinyServer(function(input, output) {
       addPolylines(data = spldf.mor, fillOpacity =  1, 
                    stroke = T, 
                    weight = 5, 
-                   color = linecolormaker(pmchoice = input$pmetric, timechoice = input$moreve))
+                   color = 'blue')
     })
   
   ## OBSERVER FOR MAPPING ui VARIABLES ###########
@@ -123,7 +123,11 @@ shinyServer(function(input, output) {
                    highlightOptions = highlightOptions(stroke = T, 
                                                        color = 'black', 
                                                        weight = 2, 
-                                                       bringToFront = T)) %>%
+                                                       bringToFront = T), 
+                   label = ~htmltools::HTML(paste("<h2>", spldf@data[,3], "</h2>", 
+                                  "<b>Avg. TT (mins):</b>", spldf@data[,4], "<br>", 
+                                  "<b>Rel. TT (mins):</b>", spldf@data[,5], 
+                                  sep = ""))) %>%
       addLegend('bottomleft', colors = colordf$linecolor,
                 labels = colordf$bounds,
                 title = paste('Average daily peak-period ', as.character(input$pmetric), sep = ''),
