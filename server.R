@@ -27,44 +27,12 @@ shinyServer(function(input, output) {
     return(mapchoice)
   }
   
-  linecolormaker <- function(pmchoice, timechoice) { 
-    
-    if (as.character(timechoice) == 'moring') {
-      res <- resmor
-      spldf <- spldf.mor 
-    } else { 
-      res <- reseve
-      spldf <- spldf.eve  
-    }
-    
-    
-    ## FIRST DETERMINE CUTPOINTS FOR THE COLOR LEGEND 
-    ## BASED ON THE USER-CHOSEN PERFORMANCE METRIC 
-    colorcats <- 4 #of color categories
-    
-    cutpoints <- unique(arules::discretize(seq(0,max(res[, as.character(pmchoice)], na.rm = T),1), 
-                              categories = colorcats, 
-                              method = "interval", 
-                              onlycuts = T)) #to return as a vector of cut points
-    
-    
-    #same cuts but as df w/ lables for legend
-    colordf <- data.frame(bounds = as.character(unique(arules::discretize(seq(0,max(res[, as.character(pmchoice)], na.rm = T),1), 
-                                                             categories = colorcats, 
-                                                             method = "interval"))), 
-                          colbin = seq(1,colorcats,1))
-    
-    colordf <<- merge(colordf, mycolors, by = 'colbin') #bring in the color palette and pass colordf outside of functn 
-    
-    ## NOW PUT USER-SELECTED DATA INTO THOSE BINS
-    colors <- data.frame(colbin = as.numeric(cut(spldf@data[,as.character(pmchoice)], breaks = cutpoints)))
-    colors <- merge(colors, mycolors, by = 'colbin')
-    
-    return(colors$linecolor)
-    
-  }
   
-  spldfmaker <- function(citychoice, odchoice, timechoice) { 
+  
+  spldfmaker <- function(citychoice, odchoice, timechoice, pmchoice) { 
+    
+    source('./Scripts/linecolormaker') 
+    spldf@data$linecolor <- linecolormaker(pmchoice = pmchoice, timechoice = timechoice)
     
     #subset the spatial dataframe for plotting, given user inputs 
     
@@ -75,16 +43,19 @@ shinyServer(function(input, output) {
     
     if (as.character(timechoice) == 'morning') { 
       spldf <- spldf.mor
-      res1 <- merge(res, od1, by = 'corrcode')
+      res1 <- merge(resmor, od1, by = 'corrcode')
       
     } else { 
       spldf <- spldf.eve  
       res1 <- merge(reseve, od1, by = 'corrcode')
     }
     
-    res2 <- res1[res1$period == as.character(timechoice), ]
+    res2 <- res1[res1$period == as.character(timechoice), ] #the subset of results the user wants to plot 
     
-    spldf <- spldf[spldf@data$corrcode%in% res2$corrcode, ]
+    spldf <- spldf[spldf@data$corrcode%in% res2$corrcode, ] #the corresponding subset of the spldf
+    
+    source('./Scripts/linecolormaker') 
+    spldf@data$linecolor <- linecolormaker(pmchoice = pmchoice, timechoice = timechoice) #color the lines
     
     return(spldf)
   }
@@ -119,7 +90,7 @@ shinyServer(function(input, output) {
                    fillOpacity =  1,
                    stroke = T, 
                    weight = 5, 
-                   color = linecolormaker(pmchoice = input$pmetric, timechoice = input$moreve), 
+                   color = ~linecolor, 
                    highlightOptions = highlightOptions(stroke = T, 
                                                        color = 'black', 
                                                        weight = 2, 
