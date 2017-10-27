@@ -25,7 +25,9 @@ linecolormaker <- function(spldf, pmchoice) {
   # 1) data to visualize is null 
   # 2) data has at least one 0 value for pmetric 
  
-  resbins <- data.frame(pmetric = spldf@data[, as.character(pmchoice)])
+  resbins <- spldf@data[, c('corrcode', as.character(pmchoice))]
+  #  data.frame(pmetric = spldf@data[, as.character(pmchoice)])
+  
   #resbins <- data.frame(pmetric = restest[, c('Trips w/ 90%+ Occupancy')])
                         
   resbins$binnum <- as.numeric(cut(spldf@data[,as.character(pmchoice)], breaks = cutpoints))
@@ -37,6 +39,6 @@ linecolormaker <- function(spldf, pmchoice) {
   
   resbins$linecolor[is.na(resbins$pmetric) == T] <- 'black' #deal w/ edge case 1 - draw a black line instead 
 
-  return(resbins$linecolor)
+  return(resbins)
          
 }

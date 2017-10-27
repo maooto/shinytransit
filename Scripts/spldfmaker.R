@@ -21,7 +21,8 @@ spldfmaker <- function(citychoice, odchoice, timechoice, pmchoice) {
   
   print(c(citychoice, odchoice, timechoice, pmchoice))
   
-  spldf@data$linecolor <- linecolormaker(spldf = spldf, pmchoice = pmchoice) # determine color the lines
-
+  linecolors <- linecolormaker(spldf = spldf, pmchoice = pmchoice) # determine color the lines
+  spldf@data <- merge(spldf@data, linecolors[, c('corrcode', 'linecolor')], by = 'corrcode')
+  
   return(spldf)
 }
