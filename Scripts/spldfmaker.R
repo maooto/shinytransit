@@ -18,8 +18,8 @@ spldfmaker <- function(citychoice, odchoice, timechoice, pmchoice) {
   
   spldf <- spldf[spldf@data$corrcode%in% res1$corrcode, ] #the corresponding subset of the spldf
   
-  source('./Scripts/linecolormaker.R') 
   spldf@data$linecolor <- linecolormaker(spldf = spldf, results = res1, pmchoice = pmchoice) # determine color the lines
+  spldf@data$labelstring <- labelmaker(results = res1) #make a text string for labels to be read by htmltools::HTML
   
   return(spldf)
 }

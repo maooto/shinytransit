@@ -29,6 +29,22 @@ shinyServer(function(input, output) {
       #              color = 'blue')
     })
   
+  
+  ## OBSERVER FOR popup data table ###########
+  
+  observe({
+    leafletProxy("transitmap") %>% clearPopups()
+    event <- input$map_shape_click
+    if (is.null(event))
+      return()
+    
+    isolate({
+      showlinepopup(event$id, event$lat, event$lng)
+    })
+  })
+  
+  
+  
   ## OBSERVER FOR MAPPING ui VARIABLES ###########
   
   observe ({
@@ -48,15 +64,14 @@ shinyServer(function(input, output) {
                    stroke = T, 
                    weight = 6, 
                    color = ~spldf@data$linecolor, 
-                   highlightOptions = highlightOptions(stroke = T, 
-                                                       #color = spldf@data$linecolor, 
-                                                       opacity = 1, 
-                                                       weight = 10, 
+                   highlightOptions = highlightOptions(stroke = T,
+                                                       #color = spldf@data$linecolor,
+                                                       opacity = 1,
+                                                       weight = 10,
                                                        bringToFront = T), 
-                   label = htmltools::HTML(paste("<h5>", spldf@data$Commute, "</h5>", 
-                                  "<b>Avg. TT (mins):</b>", spldf@data$`Average Travel Time`, "<br>", 
-                                  "<b>Rel. TT (mins):</b>", spldf@data$`Reliable Travel Time`, 
-                                  sep = ""))) %>%
+                   layerId = ~spldf@data$corrcode
+                   #label = ~htmltools::HTML(spldf@data$labelstring)
+                   ) %>%
       addLegend('bottomleft', colors = colordf$linecolor,
                 labels = colordf$bounds,
                 title = paste('Average daily peak-period ', as.character(input$pmetric), sep = ''),
@@ -66,15 +81,3 @@ shinyServer(function(input, output) {
   
   
 })
-
-
-
-
-# label = htmltools::HTML(c(paste("<h5>", spldf@data$Commute, "</h5>", 
-#                                 "<b>Avg. TT (mins):</b>", spldf@data$`Average Travel Time`, "<br>", 
-#                                 "<b>Rel. TT (mins):</b>", spldf@data$`Reliable Travel Time`, 
-#                                 sep = "")))) %>%
-
-
-
-

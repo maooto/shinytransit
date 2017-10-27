@@ -20,6 +20,10 @@
 source('./Scripts/linecolormaker.R')
 source('./Scripts/spldfmaker.R')
 source('./Scripts/choosebasemap.R')
+source('./Scripts/showlinepopup.R')
+source('./Scripts/labelmaker.R')
+
+
 
 # timechoice <- 'morning'
 # odchoice <- 'Origin'
