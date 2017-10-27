@@ -9,7 +9,7 @@ shinyUI(fluidPage(
                  leafletOutput("transitmap", height = 833.33), #, height = 833.33, width = 1000
                  
                  absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
-                               draggable = TRUE, top = 60, left = 20, right = "auto" , bottom = "auto",
+                               draggable = TRUE, top = 150, left = 20, right = "auto" , bottom = "auto",
                                width = 330, height = "auto",
                                
                                ### ui DASHBOARD CONTROLS 

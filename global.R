@@ -33,7 +33,7 @@ mycolors <- data.frame(colbin = c(1:4),
                                               '#b2182b')))
 
 # # ####### 1 - READ PERFORMANCE DATA #############
-
+cityloc <- read.csv(file = './Data/cityloc.csv')
 odhash <- read.csv(file = './Data/odhash.csv', stringsAsFactors = F)
 res <- read.csv(file = './Data/transitrawresults082417.csv', stringsAsFactors = F)
 

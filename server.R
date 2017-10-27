@@ -42,6 +42,17 @@ shinyServer(function(input, output) {
       clearShapes() %>%
       addProviderTiles(choosebasemap(input$moreve), 
                        group = 'tiles') %>%
+      addCircleMarkers(data = cityloc, lng = ~long, lat = ~lat, 
+                       stroke = T, 
+                       weight = 2, 
+                       radius = 5, 
+                       color = 'black', 
+                       opacity = .9, 
+                       fill = T, 
+                       fillColor = 'white', 
+                       fillOpacity = 1
+                      
+      ) %>% 
       addPolylines(data = spldf, 
                    opacity = .8, 
                    stroke = T, 
