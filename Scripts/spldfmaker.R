@@ -21,7 +21,7 @@ spldfmaker <- function(citychoice, odchoice, timechoice, pmchoice) {
   
   print(c(citychoice, odchoice, timechoice, pmchoice))
   
-  spldf@data$linecolor <- linecolormaker(spldf = spldf, results = res, pmchoice = pmchoice) # determine color the lines
+  spldf@data$linecolor <- linecolormaker(spldf = spldf, pmchoice = pmchoice) # determine color the lines
 
   return(spldf)
 }
