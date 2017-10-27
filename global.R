@@ -16,28 +16,16 @@
 # library(rgdal)
 # library(arules)
 # 
-
+# 
 source('./Scripts/linecolormaker.R')
 source('./Scripts/spldfmaker.R')
 source('./Scripts/choosebasemap.R')
 source('./Scripts/showlinepopup.R')
 source('./Scripts/labelmaker.R')
-
-
-
-# timechoice <- 'morning'
-# odchoice <- 'Origin'
-# citychoice <- 'Seattle'
-# pmchoice <- 'Ridership'
 # 
-# spldf <- spldfmaker(citychoice = 'Seattle',
-#                     odchoice = 'Origin',
-#                     timechoice = 'morning',
-#                     pmchoice = 'Ridership')
-
 # initlat <- 47.642137
 # initlong <- -122.253325
- initzoom <- 9
+# initzoom <- 9
 # 
 # mycolors <- data.frame(colbin = c(1:4),
 #                        linecolor = as.character(c('#74add1',
@@ -45,7 +33,7 @@ source('./Scripts/labelmaker.R')
 #                                               '#d6604d',
 #                                               '#b2182b')))
 # 
-# ####### 1 - READ PERFORMANCE DATA #############
+# # ####### 1 - READ PERFORMANCE DATA #############
 # 
 # odhash <- read.csv(file = './Data/odhash.csv', stringsAsFactors = F)
 # res <- read.csv(file = './Data/transitrawresults082417.csv', stringsAsFactors = F)
@@ -54,14 +42,16 @@ source('./Scripts/labelmaker.R')
 # names(res) <- c('corrcode', 'period', 'Commute', 'Average Travel Time', 'Reliable Travel Time', 'Ridership', 'PMT',
 #                 'Avg. Occupancy', 'Daily Transit Trips', 'Trips w/ 90%+ Occupancy', 'GHG Avoided', 'VMT Avoided')
 # 
-# #create a testing df
+# #store master copy
 # res_original <- res
 # 
+# #morning/evening subsets 
+# #(so that corrcode is unique line/layer ID)
 # resmor <- res[res$period == 'morning', ]
 # reseve <- res[res$period == 'evening', ]
 # 
 # 
-# # ####### READ SHAPE DATA #############
+# # # ####### READ SHAPE DATA #############
 # 
 # #initiate
 # corrlist <- unique(res$corrcode) #use unique(res$corrcode) when all polylines are ready to import
@@ -102,16 +92,10 @@ source('./Scripts/labelmaker.R')
 # row.names(corr.lines) <- corrlist
 # 
 # #combine attributes/lines into spatial lines dataframe
-# 
-# # testcorrs <- c('NWR002', 'NWR014', 'NWR016') #for testing offset 
-# # restest <- spldf.mor@data[spldf.mor@data$corrcode %in% testcorrs, ] #for testing offset 
-# 
 # spldf.mor <- sp::SpatialLinesDataFrame(corr.lines, resmor, match.ID = 'corrcode')
-# #spldf.mor <- spldf.mor[spldf.mor@data$corrcode %in% testcorrs, ] 
 # 
 # spldf.eve <- sp::SpatialLinesDataFrame(corr.lines, reseve, match.ID = 'corrcode')
-# #spldf.eve <- spldf.eve[spldf.eve@data$corrcode %in% testcorrs, ]
-
+# 
 
 
 

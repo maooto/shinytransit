@@ -4,8 +4,7 @@ linecolormaker <- function(spldf, results, pmchoice) {
   ## BASED ON THE USER-CHOSEN PERFORMANCE METRIC 
   colorcats <- dim(mycolors)[1] #of color categories
   
-  upperbound <- max(results[, as.character(pmchoice)], na.rm = T) + 1
-  
+  upperbound <- (max(results[, as.character(pmchoice)], na.rm = T) + 1)
   
   cutpoints <- unique(arules::discretize(seq(0, upperbound,1), 
                                          categories = colorcats, 
@@ -27,6 +26,8 @@ linecolormaker <- function(spldf, results, pmchoice) {
                        
   colors <- merge(colors, mycolors, by = 'colbin')
   
-  return(colors$linecolor)
+  ifelse(length(colors$linecolor) == 0, 
+         return('black'), 
+         return(colors$linecolor))
   
 }

@@ -13,6 +13,6 @@ labelmaker <- function(results) {
     
   }
  
-  return(labeldf$labels)
+  return(as.list(labeldf$labels))
   
 }

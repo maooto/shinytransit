@@ -8,18 +8,20 @@ spldfmaker <- function(citychoice, odchoice, timechoice, pmchoice) {
   
   if (as.character(timechoice) == 'morning') { 
     spldf <- spldf.mor
-    res1 <- merge(resmor, od1, by = 'corrcode') #GIVE all the morning results for that origin/destination city
+    res <- resmor
     
   } else { 
     spldf <- spldf.eve  
-    res1 <- merge(reseve, od1, by = 'corrcode') #OR all the evening results for that origin/destination city
+    res <- reseve
   }
   
+  res1 <- merge(res, od1, by = 'corrcode') 
   
   spldf <- spldf[spldf@data$corrcode%in% res1$corrcode, ] #the corresponding subset of the spldf
   
-  spldf@data$linecolor <- linecolormaker(spldf = spldf, results = res1, pmchoice = pmchoice) # determine color the lines
-  spldf@data$labelstring <- labelmaker(results = res1) #make a text string for labels to be read by htmltools::HTML
+  print(c(citychoice, odchoice, timechoice, pmchoice))
   
+  spldf@data$linecolor <- linecolormaker(spldf = spldf, results = res, pmchoice = pmchoice) # determine color the lines
+
   return(spldf)
 }

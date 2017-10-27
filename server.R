@@ -23,26 +23,8 @@ shinyServer(function(input, output) {
   output$transitmap <- renderLeaflet({
     leaflet() %>% 
       setView(lat = initlat, lng = initlong, zoom = initzoom)  
-      # addPolylines(data = spldf.mor, fillOpacity =  1, 
-      #              stroke = T, 
-      #              weight = 5, 
-      #              color = 'blue')
+      
     })
-  
-  
-  ## OBSERVER FOR popup data table ###########
-  
-  observe({
-    leafletProxy("transitmap") %>% clearPopups()
-    event <- input$map_shape_click
-    if (is.null(event))
-      return()
-    
-    isolate({
-      showlinepopup(event$id, event$lat, event$lng)
-    })
-  })
-  
   
   
   ## OBSERVER FOR MAPPING ui VARIABLES ###########
@@ -58,19 +40,20 @@ shinyServer(function(input, output) {
 
     leafletProxy("transitmap") %>%
       clearShapes() %>%
-      addProviderTiles(choosebasemap(input$moreve)) %>%
+      addProviderTiles(choosebasemap(input$moreve), 
+                       group = 'tiles') %>%
       addPolylines(data = spldf, 
                    opacity = .8, 
                    stroke = T, 
                    weight = 6, 
-                   color = ~spldf@data$linecolor, 
+                   color = ~linecolor, 
                    highlightOptions = highlightOptions(stroke = T,
-                                                       #color = spldf@data$linecolor,
                                                        opacity = 1,
                                                        weight = 10,
                                                        bringToFront = T), 
-                   layerId = ~spldf@data$corrcode
-                   #label = ~htmltools::HTML(spldf@data$labelstring)
+                   layerId = ~corrcode, 
+                   group = "commutes",
+                   label = lapply(labelmaker(results = spldf@data), htmltools::HTML)
                    ) %>%
       addLegend('bottomleft', colors = colordf$linecolor,
                 labels = colordf$bounds,
