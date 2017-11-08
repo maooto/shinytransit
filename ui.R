@@ -1,7 +1,7 @@
 shinyUI(fluidPage(
   
   #Application Title
-  navbarPage("NW Washington Transit Performance Dashboard", id = 'nav',
+  navbarPage("NW Washington Transit Performance Dashboard [beta]", id = 'nav',
   
     tabPanel('Map', 
              div(class = 'outer', 
